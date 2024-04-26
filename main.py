@@ -36,10 +36,10 @@ df = df.transform(rename_cols).transform(get_rows_with_different_domains)
 print(f"Numero de casos con distintos dominios: {df.count()}")
 
 df.show(truncate=False)
-# Stop the SparkSession
-print("Press any key to continue...")
-input()
-print("Continuing execution...")
+
+df.write.partitionBy("PROVINCIA").format("parquet").save("data/result2")
+
 logger.info("Finishing application")
 
+# Stop the SparkSession
 spark.stop()
